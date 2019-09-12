@@ -11,7 +11,7 @@ var itemThree = document.getElementById('item-three');
 var result = document.getElementById('result');
 var previousItems = [];
 //constructor function
-function ItemCreator(itemName){
+function ItemCreator(itemName,){
   this.name = itemName;
   this.file = `img/${itemName}`;
   this.votes = 0;
@@ -58,6 +58,14 @@ function renderItems(){
   assign(itemThree,randomItems[2]);
 }
 
+function renderVotes(){
+  for(var i=0;i<allItems.length;i++){
+    var liEL = document.createElement('li');
+    liEL.textContent = `${allItems[i].name}: ${allItems[i].votes} votes`;
+    result.appendChild(liEL);
+  }
+}
+
 function pushClicks(e){
   var name = e.target.title;
   for(var i = 0; i<allItems.length;i++){
@@ -66,6 +74,10 @@ function pushClicks(e){
       votes--;
       console.log(`votes remaining: ${votes}`);
     }
+  }
+  if(votes === 0){
+    itemContainer.removeEventListener('click',pushClicks);
+    renderVotes();
   }
   renderItems();
 }
