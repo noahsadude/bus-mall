@@ -1,3 +1,5 @@
+/* stolen shamelessly from lab 11. Because I'm lazy and hate css with a passion. */
+
 h1{
   text-align: center;
   font-size: 2em;
@@ -6,23 +8,31 @@ h1{
   margin: 2em;
 }
 img{
-  width: 30%;
+  width: 28%;
   border: 4px solid gray;
   margin: 1em;
   padding: 1em;
   background-color: white;
 }
-#cat-container{
+#item-container{
   background-color: lightgray;
   border: 4px solid black;
   border-radius: 10px;
-  min-height: 335px;
+  min-height: 700px;
   width: 80%;
   margin: auto;
   padding: 1em;
   text-align: center;
 }
 
-#cat-one {
+#item-one {
   float: left;
+}
+
+#item-two {
+  float: left;
+}
+
+#item-three{
+  float:left;
 }
