@@ -58,12 +58,23 @@ function renderItems(){
   assign(itemThree,randomItems[2]);
 }
 
+function pushClicks(e){
+  var name = e.target.title;
+  for(var i = 0; i<allItems.length;i++){
+    if(name === allItems[i].name){
+      allItems[i].votes++;
+      votes--;
+      console.log(`votes remaining: ${votes}`);
+    }
+  }
+  renderItems();
+}
+
 //push all the items to the allItems array
 for(var i = 0;i<itemNames.length;i++){
   new ItemCreator(itemNames[i]);
 }
 
 renderItems();
-itemContainer.addEventListener('click',renderItems);
-
+itemContainer.addEventListener('click',pushClicks);
 
