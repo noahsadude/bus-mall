@@ -1,7 +1,7 @@
 'use strict';
 //global variables
 
-var votes = 25;
+var votes = 5;
 var allItems = [];
 var itemNames = ['bag.jpg','banana.jpg','bathroom.jpg','boots.jpg','breakfast.jpg','bubblegum.jpg','chair.jpg','cthulhu.jpg','dog-duck.jpg','dragon.jpg','pen.jpg','pet-sweep.jpg','scissors.jpg','shark.jpg','sweep.png','tauntaun.jpg','unicorn.jpg','usb.gif','water-can.jpg','wine-glass.jpg'];
 var itemContainer = document.getElementById('item-container');
@@ -9,18 +9,24 @@ var itemOne = document.getElementById('item-one');
 var itemTwo = document.getElementById('item-two');
 var itemThree = document.getElementById('item-three');
 var result = document.getElementById('result');
+var ctx = document.getElementById('myChart').getContext('2d');
 var previousItems = [];
 //constructor function
-function ItemCreator(itemName,){
+function ItemCreator(itemName){
   this.name = itemName;
   this.file = `img/${itemName}`;
   this.votes = 0;
   this.views = 0;
+  this.colors = randomColor();
   allItems.push(this);
 }
 //random integer function
 function randomInt(max){
   return Math.floor(Math.random()*max);
+}
+//random color function
+function randomColor(){
+  return 'rgba('+randomInt(255)+' ,'+randomInt(255)+' ,'+randomInt(255)+')';
 }
 
 function threeRandomNonRepeatingNumbers(){
@@ -59,11 +65,39 @@ function renderItems(){
 }
 
 function renderVotes(){
-  for(var i=0;i<allItems.length;i++){
-    var liEL = document.createElement('li');
-    liEL.textContent = `${allItems[i].name}: ${allItems[i].votes} votes`;
-    result.appendChild(liEL);
+  result.style.visibility = 'visible';
+  var labels = [];
+  var votes = [];
+  var views = [];
+  var color = [];
+  for(var i = 0;i<allItems.length;i++){
+    labels.push(allItems[i].name);
+    votes.push(allItems[i].votes);
+    views.push(allItems[i].views);
+    color.push(allItems[i].colors);
   }
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: labels,
+          datasets: [{
+              label: '# of Votes',
+              data: votes,
+              backgroundColor: color,
+              borderColor: color,
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          }
+      }
+  });
 }
 
 function pushClicks(e){
@@ -89,4 +123,3 @@ for(var i = 0;i<itemNames.length;i++){
 
 renderItems();
 itemContainer.addEventListener('click',pushClicks);
-
