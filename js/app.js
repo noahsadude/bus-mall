@@ -1,7 +1,7 @@
 'use strict';
 //global variables
 
-var votes = 5;
+var votes = 25;
 var allItems = [];
 var itemNames = ['bag.jpg','banana.jpg','bathroom.jpg','boots.jpg','breakfast.jpg','bubblegum.jpg','chair.jpg','cthulhu.jpg','dog-duck.jpg','dragon.jpg','pen.jpg','pet-sweep.jpg','scissors.jpg','shark.jpg','sweep.png','tauntaun.jpg','unicorn.jpg','usb.gif','water-can.jpg','wine-glass.jpg'];
 var itemContainer = document.getElementById('item-container');
@@ -58,6 +58,11 @@ function renderItems(){
   allItems[randomItems[0]].views++;
   allItems[randomItems[1]].views++;
   allItems[randomItems[2]].views++;
+
+  console.table(allItems);
+  localStorage.clear;
+  var pushed = JSON.stringify(allItems);
+  localStorage.setItem('itemString',pushed);
 
   assign(itemOne,randomItems[0]);
   assign(itemTwo,randomItems[1]);
@@ -116,9 +121,16 @@ function pushClicks(e){
   renderItems();
 }
 
-//push all the items to the allItems array
-for(var i = 0;i<itemNames.length;i++){
-  new ItemCreator(itemNames[i]);
+var pulled = localStorage.getItem('itemString');
+if(pulled){
+  pulled = JSON.parse(pulled);
+  console.log(pulled);
+  allItems = pulled;
+} else{
+ //push all the items to the allItems array
+  for(var i = 0;i<itemNames.length;i++){
+    new ItemCreator(itemNames[i]);
+  }
 }
 
 renderItems();
