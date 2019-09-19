@@ -112,13 +112,22 @@ function pushClicks(e){
   if(votes === 0){
     itemContainer.removeEventListener('click',pushClicks);
     renderVotes();
+    var pushed = JSON.stringify(allItems);
+    localStorage.setItem('itemString',pushed);
   }
   renderItems();
 }
 
-//push all the items to the allItems array
-for(var i = 0;i<itemNames.length;i++){
-  new ItemCreator(itemNames[i]);
+var pulled = localStorage.getItem('itemString');
+if(pulled){
+  pulled = JSON.parse(pulled);
+  console.log(pulled);
+  allItems = pulled;
+} else{
+ //push all the items to the allItems array
+  for(var i = 0;i<itemNames.length;i++){
+    new ItemCreator(itemNames[i]);
+  }
 }
 
 renderItems();
