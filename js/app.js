@@ -59,6 +59,10 @@ function renderItems(){
   allItems[randomItems[1]].views++;
   allItems[randomItems[2]].views++;
 
+  localStorage.clear;
+  var pushed = JSON.stringify(allItems);
+  localStorage.setItem('itemString',pushed);
+
   assign(itemOne,randomItems[0]);
   assign(itemTwo,randomItems[1]);
   assign(itemThree,randomItems[2]);
@@ -112,8 +116,6 @@ function pushClicks(e){
   if(votes === 0){
     itemContainer.removeEventListener('click',pushClicks);
     renderVotes();
-    var pushed = JSON.stringify(allItems);
-    localStorage.setItem('itemString',pushed);
   }
   renderItems();
 }
