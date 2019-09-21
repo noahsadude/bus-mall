@@ -60,7 +60,6 @@ function renderItems(){
   allItems[randomItems[2]].views++;
 
   console.table(allItems);
-  localStorage.clear;
   var pushed = JSON.stringify(allItems);
   localStorage.setItem('itemString',pushed);
 
