@@ -60,7 +60,6 @@ function renderItems(){
   allItems[randomItems[2]].views++;
 
   console.table(allItems);
-  localStorage.clear;
   var pushed = JSON.stringify(allItems);
   localStorage.setItem('itemString',pushed);
 
@@ -82,26 +81,26 @@ function renderVotes(){
     color.push(allItems[i].colors);
   }
   var myChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-          labels: labels,
-          datasets: [{
-              label: '# of Votes',
-              data: votes,
-              backgroundColor: color,
-              borderColor: color,
-              borderWidth: 1
-          }]
-      },
-      options: {
-          scales: {
-              yAxes: [{
-                  ticks: {
-                      beginAtZero: true
-                  }
-              }]
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: '# of Votes',
+        data: votes,
+        backgroundColor: color,
+        borderColor: color,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
           }
+        }]
       }
+    }
   });
 }
 
@@ -127,7 +126,7 @@ if(pulled){
   console.log(pulled);
   allItems = pulled;
 } else{
- //push all the items to the allItems array
+  //push all the items to the allItems array
   for(var i = 0;i<itemNames.length;i++){
     new ItemCreator(itemNames[i]);
   }
